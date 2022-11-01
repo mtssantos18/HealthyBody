@@ -14,6 +14,7 @@ class ModalityView(generics.ListCreateAPIView):
     serializer_class = ModalitySerializer
 
 
+# Still need to finish the ModalityDetailView
 class ModalityDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
 
