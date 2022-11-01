@@ -5,7 +5,7 @@ from personals.serializers import PersonalAllSerializer
 
 class PrivateSerializer(serializers.ModelSerializer):
     # customer = CustomerSerializer(read_only=True)
-    # personal = PersonalAllSerializer(read_only=True)
+    personal = PersonalAllSerializer(read_only=True)
     class Meta:
         model = Private_training
         fields = [
@@ -13,6 +13,5 @@ class PrivateSerializer(serializers.ModelSerializer):
             "date",
             "hour",
             "update_at",
-            # "customer",
-            # "personal"       
+            "personal"       
             ]

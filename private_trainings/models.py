@@ -11,6 +11,6 @@ class Private_training(models.Model):
     #     "customers.Customer",on_delete=models.CASCADE, related_name="customer"
     # )
 
-    # personal_id = models.ForeignKey(
-    #     "personals.Personal",on_delete=models.CASCADE, related_name="personal"
-    # )
+    personal = models.ForeignKey(
+        "personals.Personal",on_delete=models.CASCADE, related_name="personal"
+    )
