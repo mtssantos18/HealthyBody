@@ -36,8 +36,7 @@ class PrivateTrainingDetail(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    lookup_url_kwarg = "training-id"
+    lookup_url_kwarg = "training_id"
 
     queryset = Private_training.objects
     serializer_class = PrivateSerializer
-

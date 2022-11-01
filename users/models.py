@@ -15,5 +15,8 @@ class User(AbstractUser):
     birthdate = models.DateField()
     is_active = models.BooleanField(default=True)
 
+    REQUIRED_FIELDS = ["birthdate","first_name","last_name"]
+
     def obtain_full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
+

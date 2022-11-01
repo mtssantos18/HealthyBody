@@ -7,9 +7,9 @@ class Private_training(models.Model):
     hour = models.TimeField()
     update_at = models.DateTimeField(auto_now=True)
 
-    customer_id = models.ForeignKey(
-        "customers.Customer",on_delete=models.CASCADE, related_name="customer"
-    )
+    # customer_id = models.ForeignKey(
+    #     "customers.Customer",on_delete=models.CASCADE, related_name="customer"
+    # )
 
     personal_id = models.ForeignKey(
         "personals.Personal",on_delete=models.CASCADE, related_name="personal"
