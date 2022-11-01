@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class IsAdmPermission(permissions.BasePermission):
+class IsAdmPermissionOrTeacherReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
 
         try:
