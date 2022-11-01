@@ -7,7 +7,7 @@ from .serializer import PrivateSerializer
 from .models import Private_training
 from utils.mixins import SerializerByMethodMixin
 
-class PrivateViewCustomer(SerializerByMethodMixin,generics.ListCreateAPIView):
+class PrivateViewCustomer(generics.ListCreateAPIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [MyCustomPermissionCustomer]
@@ -15,8 +15,8 @@ class PrivateViewCustomer(SerializerByMethodMixin,generics.ListCreateAPIView):
     queryset = Private_training.objects
     serializer_class = PrivateSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(customer_id=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(customer_id=self.request.user)
 
 class GetAllPrivateTrainings(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
