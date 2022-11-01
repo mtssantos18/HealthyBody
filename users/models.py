@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
@@ -14,6 +13,13 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
     is_active = models.BooleanField(default=True)
+
+    REQUIRED_FIELDS = [
+        "phone",
+        "first_name",
+        "last_name",
+        "birthdate",
+    ]
 
     def obtain_full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
