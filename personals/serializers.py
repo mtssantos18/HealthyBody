@@ -10,13 +10,13 @@ class PersonalAllSerializer(ModelSerializer):
 
     class Meta:
         model = Personal
-        fields = '__all__'
-        read_only_fields = ['id']
+        fields = "__all__"
+        read_only_fields = ["id"]
 
     def create(self, validated_data):
-        user_data = validated_data.pop('user')
+        user_data = validated_data.pop("user")
         user = User.objects.create_user(**user_data)
-        validated_data['user'] = user
+        validated_data["user"] = user
 
         personal = Personal.objects.create(**validated_data)
         return personal
