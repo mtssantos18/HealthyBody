@@ -16,7 +16,7 @@ class PrivateViewCustomer(generics.ListCreateAPIView):
     serializer_class = PrivateSerializer
 
     # def perform_create(self, serializer):
-    #     serializer.save(customer_id=self.request.user)
+    #     serializer.save(customer=self.request.user)
 
 class GetAllPrivateTrainings(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
