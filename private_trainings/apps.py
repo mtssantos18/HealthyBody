@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PrivateTrainingsConfig(AppConfig):
+class PrivateTrainingConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "private_trainings"
+    name = "private_training"
