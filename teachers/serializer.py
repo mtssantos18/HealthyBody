@@ -1,5 +1,3 @@
-from dataclasses import fields
-from pyexpat import model
 from rest_framework import serializers
 from teachers.models import Teacher
 from users.models import User
@@ -15,8 +13,6 @@ class TeachersSerializer(serializers.ModelSerializer):
         model = Teacher
 
         fields = "__all__"
-
-        # exclude = ["id"]
 
     def create(self, validated_data: dict):
 
