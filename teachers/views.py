@@ -9,7 +9,3 @@ class TeacherView(generics.ListCreateAPIView):
     queryset = Teacher.objects.all()
 
     serializer_class = TeachersSerializer
-
-
-
-
