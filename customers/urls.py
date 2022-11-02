@@ -1,10 +1,7 @@
-from rest_framework import serializers
+from django.urls import path
 
-from customers.models import Customer
+from customers import views
 
-class CustomerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Customer
-        fields = [
-            'id',
-        ]
+urlpatterns = [
+    path("customers/", views.CreateListCustomerView.as_view()),
+]
