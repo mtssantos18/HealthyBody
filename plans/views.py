@@ -7,12 +7,13 @@ from rest_framework.authentication import TokenAuthentication
 class PlanView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperUserAndAuthenticated]
+
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer
 
 class PlanDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperUserAndAuthenticated]
-
+    
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer

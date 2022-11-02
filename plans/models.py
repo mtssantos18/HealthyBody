@@ -4,8 +4,8 @@ import uuid
 
 class Tier(models.TextChoices):
     Bronze = 'Bronze'
-    SILVER = 'Silver'
-    GOLD = 'Gold'
+    Prata = 'Prata'
+    Ouro = 'Ouro'
     DEFAULT = 'Não informado'
 
 class Plan(models.Model):
