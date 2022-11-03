@@ -3,7 +3,7 @@ from rest_framework.views import Request
 from .models import Teacher
 
 
-class IsAdminOrReadyOnly(permissions.BasePermission):
+class IsAdminOrOwnerOrReadyOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
 
