@@ -4,7 +4,7 @@ from classes.models import Class
 from modalities.models import Modality
 from teachers.models import Teacher
 from users.models import User
-
+from users.serializers import GeralUserSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -20,25 +20,25 @@ class ModalitySerializer(serializers.ModelSerializer):
         ]
 
 
-class UserSerializer(serializers.ModelSerializer):
+# class UserSerializer(serializers.ModelSerializer):
 
-    full_name = serializers.SerializerMethodField(read_only=True)
+#     full_name = serializers.SerializerMethodField(read_only=True)
 
-    class Meta:
-        model = User
-        fields = [
-            "full_name",
-            "email",
-            "phone",
-        ]
+#     class Meta:
+#         model = User
+#         fields = [
+#             "full_name",
+#             "email",
+#             "phone",
+#         ]
 
-    def get_full_name(self, obj) -> str:
-        return obj.obtain_full_name()
+#     def get_full_name(self, obj) -> str:
+#         return obj.obtain_full_name()
 
 
 class TeachersSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = GeralUserSerializer()
 
     class Meta:
 
@@ -68,7 +68,8 @@ class PostClassSerializer(serializers.ModelSerializer):
         check_modality = validated_data.pop("modality_id")
         modality_found = get_object_or_404(Modality, id=check_modality)
 
-        new_class = Class.objects.create(**validated_data, modality=modality_found)
+        new_class = Class.objects.create(
+            **validated_data, modality=modality_found)
 
         return new_class
 
