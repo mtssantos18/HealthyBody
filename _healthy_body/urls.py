@@ -23,9 +23,6 @@ urlpatterns = [
     path("api/", include("customers.urls")),
     path("api/", include("users.urls")),
     path("api/", include("modalities.urls")),
-<<<<<<< HEAD
-    path('api/', include("private_trainings.urls"))
-=======
+    path('api/', include("private_trainings.urls")),
     path("api/",include("plans.urls"))
->>>>>>> d4215e0eb1f9f2e1621a6d311bfbca61411f4234
 ]

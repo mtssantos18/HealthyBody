@@ -12,11 +12,11 @@ class PrivateViewCustomer(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [MyCustomPermissionCustomer]
 
-    queryset = Private_training.objects
+    queryset = Private_training.objects.all()
     serializer_class = PrivateSerializer
 
-    # def perform_create(self, serializer):
-    #     serializer.save(customer=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(customer=self.request.user.customer)
 
 class GetAllPrivateTrainings(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
