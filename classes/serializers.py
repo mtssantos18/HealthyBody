@@ -3,8 +3,7 @@ from rest_framework import serializers
 from classes.models import Class
 from modalities.models import Modality
 from teachers.models import Teacher
-from users.models import User
-
+from users.serializers import GeneralUserSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -20,25 +19,9 @@ class ModalitySerializer(serializers.ModelSerializer):
         ]
 
 
-class UserSerializer(serializers.ModelSerializer):
-
-    full_name = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = User
-        fields = [
-            "full_name",
-            "email",
-            "phone",
-        ]
-
-    def get_full_name(self, obj) -> str:
-        return obj.obtain_full_name()
-
-
 class TeachersSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = GeneralUserSerializer()
 
     class Meta:
 

@@ -4,5 +4,5 @@ from trains import views
 
 urlpatterns = [
     path("trains/", views.CreateListTrainView.as_view()),
-    # path("personal/<pk>/", views.RetrievePatchDeletePersonal.as_view()),
+    path("trains/<train_id>/", views.RetrieveUpdateDestroyTrainView.as_view()),
 ]
