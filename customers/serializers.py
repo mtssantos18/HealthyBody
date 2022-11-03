@@ -40,7 +40,12 @@ class CustomerDetailSerializer(ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ["id", "user", "plan", "plan_id"]
+        fields = [
+            "id",
+            "user",
+            "plan",
+            "plan_id",
+        ]
         read_only_fields = ["id"]
 
     def update(self, instance, validated_data):

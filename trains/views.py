@@ -6,7 +6,6 @@ from trains.permissions import IsPersonalOrCustomerReadOnly, IsPersonalOrAdmin
 from utils.mixins import SerializerByMethodMixin
 from django.shortcuts import get_object_or_404
 from customers.models import Customer
-# Create your views here.
 
 
 class CreateListTrainView(SerializerByMethodMixin, generics.ListCreateAPIView):
@@ -48,7 +47,7 @@ class ListByCustomerView(generics.ListCreateAPIView):
     serializer_class = TrainGetSerializer
 
     def get_queryset(self):
-        customer_id = self.kwargs['customer_id']
+        customer_id = self.kwargs["customer_id"]
         customer = get_object_or_404(Customer, id=customer_id)
 
         return self.queryset.filter(customer=customer)

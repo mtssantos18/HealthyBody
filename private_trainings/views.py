@@ -1,11 +1,15 @@
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .permissions import MyCustomPermissionCustomer,SuperUserPermission,MyCustomPermissionPersonal
+from .permissions import (
+    MyCustomPermissionCustomer,
+    SuperUserPermission,
+    MyCustomPermissionPersonal,
+)
 
 from .serializer import PrivateSerializer
 from .models import Private_training
-from utils.mixins import SerializerByMethodMixin
+
 
 class PrivateViewCustomer(generics.ListCreateAPIView):
 
@@ -18,6 +22,7 @@ class PrivateViewCustomer(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user.customer)
 
+
 class GetAllPrivateTrainings(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperUserPermission]
@@ -25,12 +30,14 @@ class GetAllPrivateTrainings(generics.ListAPIView):
     queryset = Private_training.objects.all()
     serializer_class = PrivateSerializer
 
+
 class PrivateViewPersonal(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [MyCustomPermissionPersonal]
 
     queryset = Private_training.objects
     serializer_class = PrivateSerializer
+
 
 class PrivateTrainingDetail(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]

@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 
+
 class Private_training(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     date = models.DateField()
@@ -8,9 +9,9 @@ class Private_training(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     customer = models.ForeignKey(
-        "customers.Customer",on_delete=models.CASCADE, related_name="customer"
+        "customers.Customer", on_delete=models.CASCADE, related_name="customer"
     )
 
     personal = models.ForeignKey(
-        "personals.Personal",on_delete=models.CASCADE, related_name="personal"
+        "personals.Personal", on_delete=models.CASCADE, related_name="personal"
     )

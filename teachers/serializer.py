@@ -2,8 +2,6 @@ from rest_framework import serializers
 from teachers.models import Teacher
 from users.models import User
 from users.serializers import UserSerializer
-from modalities.models import Modality
-from modalities.models import Modality
 
 
 class TeachersSerializer(serializers.ModelSerializer):
