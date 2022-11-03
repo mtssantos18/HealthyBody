@@ -9,3 +9,11 @@ class IsPersonalOrCustomerReadOnly(permissions.BasePermission):
             return request.user.personal
         except AttributeError:
             return request.user.is_superuser
+
+
+class IsPersonalOrAdmin(permissions.BasePermission):
+    def has_permission(self, request, view):
+        try:
+            return request.user.personal
+        except AttributeError:
+            return request.user.is_superuser
