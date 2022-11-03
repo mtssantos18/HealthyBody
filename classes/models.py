@@ -1,3 +1,20 @@
 from django.db import models
+import uuid
+from django.contrib.postgres.fields import ArrayField
 
-# Create your models here.
+
+class Class(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    name = models.CharField(max_length=50, unique=True)
+    schedule = ArrayField(models.CharField(max_length=20))
+    hour = models.TimeField()
+    duration = models.CharField(max_length=20)
+    capacity = models.IntegerField()
+
+    teacher = models.ForeignKey(
+        "teachers.Teacher", on_delete=models.CASCADE, related_name="classes"
+    )
+
+    modality = models.ForeignKey(
+        "modalities.Modality", on_delete=models.CASCADE, related_name="classes"
+    )
