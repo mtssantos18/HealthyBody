@@ -1,18 +1,19 @@
 from rest_framework import serializers
 from django.shortcuts import get_object_or_404
-from rest_framework.serializers import ModelSerializer, ValidationError
+from rest_framework.serializers import ModelSerializer
 
 from customers.models import Customer
 from users.models import User
 from plans.models import Plan
 from users.serializers import UserSerializer
 from plans.serializers import PlanSerializer
-import ipdb
+from users.serializers import GeneralUserSerializer
+
 
 class CustomerSerializer(ModelSerializer):
     user = UserSerializer()
     plan = PlanSerializer(read_only=True)
-    plan_id = serializers.UUIDField(write_only = True)
+    plan_id = serializers.UUIDField(write_only=True)
 
     class Meta:
         model = Customer
@@ -28,22 +29,18 @@ class CustomerSerializer(ModelSerializer):
 
         validated_data["user"] = user
 
-        customer = Customer.objects.create(**validated_data, plan = plan_found)
+        customer = Customer.objects.create(**validated_data, plan=plan_found)
         return customer
+
 
 class CustomerDetailSerializer(ModelSerializer):
     user = UserSerializer()
     plan = PlanSerializer(read_only=True)
-    plan_id = serializers.UUIDField(write_only = True)
+    plan_id = serializers.UUIDField(write_only=True)
 
     class Meta:
         model = Customer
-        fields = [
-            "id",
-            "user",
-            "plan",
-            "plan_id"
-        ]
+        fields = ["id", "user", "plan", "plan_id"]
         read_only_fields = ["id"]
 
     def update(self, instance, validated_data):
@@ -56,7 +53,7 @@ class CustomerDetailSerializer(ModelSerializer):
             check_plan = validated_data.pop("plan_id")
         except KeyError:
             check_plan = False
-                   
+
         if check_plan:
             plan_found = get_object_or_404(Plan, id=check_plan)
             setattr(instance, "plan", plan_found)
@@ -68,3 +65,14 @@ class CustomerDetailSerializer(ModelSerializer):
             instance.user.save()
 
         return instance
+
+
+class GeneralCustomerSerializer(serializers.ModelSerializer):
+    user = GeneralUserSerializer()
+
+    class Meta:
+
+        model = Customer
+        fields = [
+            "user",
+        ]
