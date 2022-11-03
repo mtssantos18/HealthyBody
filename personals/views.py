@@ -23,6 +23,8 @@ class RetrievePatchDeletePersonal(generics.RetrieveUpdateDestroyAPIView):
     queryset = Personal.objects.all()
     serializer_class = PersonalAllSerializer
 
+    lookup_url_kwarg = "personal_id"
+
     def perform_destroy(self, instance):
         instance.user.is_active = False
         instance.user.save()

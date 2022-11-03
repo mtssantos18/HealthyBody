@@ -7,6 +7,7 @@ from trains.models import Trains
 from users.serializers import UserSerializer
 from rest_framework import serializers
 from customers.serializers import CustomerSerializer
+from customers.serializers import GeralCustomerSerializer
 
 
 class TrainSerializer(ModelSerializer):
@@ -35,13 +36,11 @@ class TrainSerializer(ModelSerializer):
 
 
 class TrainGetSerializer(ModelSerializer):
-    # customer_id = serializers.UUIDField()
-    customer = CustomerSerializer(read_only=True)
+    customer = GeralCustomerSerializer(read_only=True)
 
     class Meta:
         model = Trains
         fields = ["id",
-                  #   "customer_id",
                   "name",
                   "customer",
                   "duration",
