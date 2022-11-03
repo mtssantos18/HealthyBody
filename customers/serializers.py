@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer, ValidationError
 
 from customers.models import Customer
 from users.models import User
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, GeralUserSerializer
 
 
 class CustomerSerializer(ModelSerializer):
@@ -20,3 +20,11 @@ class CustomerSerializer(ModelSerializer):
 
         customer = Customer.objects.create(**validated_data)
         return customer
+
+
+class GeralCustomerSerializer(ModelSerializer):
+    user = GeralUserSerializer()
+
+    class Meta:
+        model = Customer
+        fields = ["user"]
