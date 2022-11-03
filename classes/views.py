@@ -6,7 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 
 from utils.mixins import SerializerByMethodMixin
 
-from classes.permissions import CustomPermission
+from classes.permissions import CustomPermission, IsAdmPermission
 
 
 class ClassView(SerializerByMethodMixin, generics.ListCreateAPIView):
@@ -23,6 +23,11 @@ class ClassView(SerializerByMethodMixin, generics.ListCreateAPIView):
         serializer.save(teacher=self.request.user.teacher)
 
 
-class ClassDetailView(generics.ListCreateAPIView):
+class ClassDetailView(generics.RetrieveDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdmPermission]
+
     queryset = Class.objects.all()
-    serializer_class = ...
+    serializer_class = ListClassSerializer
+
+    lookup_url_kwarg = "class_id"
