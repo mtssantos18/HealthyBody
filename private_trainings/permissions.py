@@ -3,12 +3,12 @@ from rest_framework.views import Request, View
 from customers.models import Customer
 
 class MyCustomPermissionCustomer(permissions.BasePermission):
-    def has_object_permission(self, request: Request, view: View, obj:Customer)->bool:
+    def has_permission(self, request: Request, view: View)->bool:
         try:
-            if request.user.customer:
-                return request.user.customer == obj and request.method != "DELETE"
+            if request.method == "POST":
+                return request.user.is_authenticated and request.user.customer
         except AttributeError:
-            return request.user.is_superuser
+            return False
 
 class SuperUserPermission(permissions.BasePermission):
      def has_permission(self, request: Request, view: View)->bool:
