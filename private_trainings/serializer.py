@@ -74,4 +74,3 @@ class PrivateSerializer(serializers.ModelSerializer):
         new_private_training = Private_training.objects.create(**validated_data,personal=personal_found)
 
         return new_private_training
-        
