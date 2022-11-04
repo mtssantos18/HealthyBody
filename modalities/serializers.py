@@ -41,3 +41,14 @@ class ModalitySerializer(serializers.ModelSerializer):
         modality = Modality.objects.create(**validated_data, teacher=teacher)
 
         return modality
+
+    # def update(self, instance, validated_data):
+    #     try:
+    #         request_name = validated_data.pop("name")
+    #     except KeyError:
+    #         request_name = False
+
+    #     try:
+    #         check_plan = validated_data.pop("plan_id")
+    #     except KeyError:
+    #         check_plan = False

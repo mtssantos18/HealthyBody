@@ -1,6 +1,7 @@
 asgiref==3.5.2
 asttokens==2.1.0
 attrs==22.1.0
+autopep8==2.0.0
 backcall==0.2.0
 black==22.10.0
 click==8.1.3
