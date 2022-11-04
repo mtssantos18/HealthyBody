@@ -4,6 +4,7 @@ from teachers.models import Teacher
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAdminOrOwnerOrReadyOnly
+from rest_framework.permissions import IsAdminUser
 
 
 class TeacherView(generics.ListCreateAPIView):
@@ -16,7 +17,7 @@ class TeacherView(generics.ListCreateAPIView):
     serializer_class = TeachersSerializer
 
 
-class TeacherDetailView(generics.RetrieveUpdateDestroyAPIView):
+class TeacherDetailView(generics.RetrieveUpdateAPIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminOrOwnerOrReadyOnly]
@@ -26,3 +27,8 @@ class TeacherDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Teacher.objects.all()
 
     serializer_class = TeachersSerializer
+
+
+
+
+

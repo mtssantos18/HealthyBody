@@ -16,7 +16,7 @@ class TeachersSerializer(serializers.ModelSerializer):
 
         model = Teacher
 
-        fields = "__all__"
+        fields = ["user"]
 
 
 class ModalitySerializer(serializers.ModelSerializer):
