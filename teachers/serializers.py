@@ -1,12 +1,24 @@
 from rest_framework import serializers
 from teachers.models import Teacher
+from modalities.models import Modality
 from users.models import User
 from users.serializers import UserSerializer
+
+
+class TeacherModalitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Modality
+        fields = [
+            "id",
+            "name",
+        ]
 
 
 class TeachersSerializer(serializers.ModelSerializer):
 
     user = UserSerializer()
+
+    modalities = TeacherModalitySerializer(many=True, read_only=True)
 
     class Meta:
 

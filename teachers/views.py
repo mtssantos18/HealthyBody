@@ -4,7 +4,6 @@ from teachers.models import Teacher
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAdminOrOwnerOrReadyOnly
-from rest_framework.permissions import IsAdminUser
 
 
 class TeacherView(generics.ListCreateAPIView):
