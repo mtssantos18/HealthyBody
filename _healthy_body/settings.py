@@ -163,7 +163,7 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "HealthyBody Python API",
+    "TITLE": "HealthyBody API - Python",
     "DESCRIPTION": "This is an application to facilitate the management of your gym.",
     "VERSION": "1.0.0",
     "SERVICE_INCLUDE_SCHEMA": False,
