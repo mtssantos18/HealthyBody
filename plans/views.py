@@ -1,3 +1,21 @@
-from django.shortcuts import render
+from plans.models import Plan
+from plans.serializers import PlanSerializer
+from rest_framework import generics
+from plans.permissions import SuperUserAndAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
-# Create your views here.
+
+class PlanView(generics.ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [SuperUserAndAuthenticated]
+
+    queryset = Plan.objects.all()
+    serializer_class = PlanSerializer
+
+
+class PlanDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [SuperUserAndAuthenticated]
+
+    queryset = Plan.objects.all()
+    serializer_class = PlanSerializer
