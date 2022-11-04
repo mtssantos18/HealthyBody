@@ -16,7 +16,7 @@ class ModalityView(generics.ListCreateAPIView):
 
 class ModalityDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAdmPermission]
+    permission_classes = [IsAdmPermissionOrTeacherReadOnly]
 
     lookup_url_kwarg = "modality_id"
 
