@@ -46,6 +46,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_spectacular",
 ]
 
 MY_APPS = [
@@ -155,3 +156,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 AUTH_USER_MODEL = "users.User"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "HealthyBody Python API",
+    "DESCRIPTION": "This is an application to facilitate the management of your gym.",
+    "VERSION": "1.0.0",
+    "SERVICE_INCLUDE_SCHEMA": False,
+}

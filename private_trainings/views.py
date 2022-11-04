@@ -7,7 +7,7 @@ from .permissions import (
     MyCustomPermissionPersonal,
 )
 
-from .serializer import PrivateSerializer
+from .serializers import PrivateSerializer
 from .models import Private_training
 
 

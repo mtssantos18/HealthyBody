@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from users.serializers import GeneralUserSerializer
 
 
-class TeachersSerializer(serializers.ModelSerializer):
+class ModalityTeachersSerializer(serializers.ModelSerializer):
 
     user = GeneralUserSerializer()
 
@@ -20,7 +20,7 @@ class TeachersSerializer(serializers.ModelSerializer):
 
 
 class ModalitySerializer(serializers.ModelSerializer):
-    teacher = TeachersSerializer(read_only=True)
+    teacher = ModalityTeachersSerializer(read_only=True)
     teacher_id = serializers.UUIDField(write_only=True)
 
     class Meta:

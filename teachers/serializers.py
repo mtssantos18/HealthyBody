@@ -4,7 +4,6 @@ from users.models import User
 from users.serializers import UserSerializer
 
 
-
 class TeachersSerializer(serializers.ModelSerializer):
 
     user = UserSerializer()
@@ -13,7 +12,7 @@ class TeachersSerializer(serializers.ModelSerializer):
 
         model = Teacher
 
-        fields = ["id","user", "modalities"]
+        fields = ["id", "user", "modalities"]
 
         depth = 1
 
@@ -27,7 +26,7 @@ class TeachersSerializer(serializers.ModelSerializer):
 
     def update(self, instance: Teacher, validated_data):
 
-        request_user = validated_data.pop("user")                        
+        request_user = validated_data.pop("user")
 
         for key, value in request_user.items():
             setattr(instance.user, key, value)

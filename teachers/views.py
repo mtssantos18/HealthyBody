@@ -1,5 +1,5 @@
 from rest_framework import generics
-from teachers.serializer import TeachersSerializer
+from teachers.serializers import TeachersSerializer
 from teachers.models import Teacher
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -27,8 +27,3 @@ class TeacherDetailView(generics.RetrieveUpdateAPIView):
     queryset = Teacher.objects.all()
 
     serializer_class = TeachersSerializer
-
-
-
-
-
