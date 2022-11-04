@@ -5,28 +5,12 @@ from customers.models import Customer
 
 from django.shortcuts import get_object_or_404
 
-from users.models import User
-
-
-class UserSerializer(serializers.ModelSerializer):
-
-    full_name = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = User
-        fields = [
-            "full_name",
-            "email",
-            "phone",
-        ]
-
-    def get_full_name(self, obj) -> str:
-        return obj.obtain_full_name()
+from users.serializers import GeneralUserSerializer
 
 
 class PersonalSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = GeneralUserSerializer()
 
     class Meta:
         model = Personal
@@ -41,7 +25,7 @@ class PersonalSerializer(serializers.ModelSerializer):
 
 class CustomerSerializerPT(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = GeneralUserSerializer()
 
     class Meta:
 

@@ -7,7 +7,7 @@ from users.serializers import GeneralUserSerializer
 from django.shortcuts import get_object_or_404
 
 
-class ModalitySerializer(serializers.ModelSerializer):
+class ClassModalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Modality
         fields = [
@@ -19,7 +19,7 @@ class ModalitySerializer(serializers.ModelSerializer):
         ]
 
 
-class TeachersSerializer(serializers.ModelSerializer):
+class ClassTeachersSerializer(serializers.ModelSerializer):
 
     user = GeneralUserSerializer()
 
@@ -33,8 +33,8 @@ class TeachersSerializer(serializers.ModelSerializer):
 
 
 class PostClassSerializer(serializers.ModelSerializer):
-    teacher = TeachersSerializer(read_only=True)
-    modality = ModalitySerializer(read_only=True)
+    teacher = ClassTeachersSerializer(read_only=True)
+    modality = ClassModalitySerializer(read_only=True)
     modality_id = serializers.UUIDField(write_only=True)
 
     class Meta:
@@ -57,8 +57,8 @@ class PostClassSerializer(serializers.ModelSerializer):
 
 
 class ListClassSerializer(serializers.ModelSerializer):
-    teacher = TeachersSerializer(read_only=True)
-    modality = ModalitySerializer(read_only=True)
+    teacher = ClassTeachersSerializer(read_only=True)
+    modality = ClassModalitySerializer(read_only=True)
 
     class Meta:
         model = Class
