@@ -25,6 +25,8 @@ class RetrieveUpdateDeleteCustomerView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerDetailSerializer
 
+    lookup_url_kwarg = "customer_id"
+
     def perform_destroy(self, instance):
         instance.user.is_active = False
         instance.user.save()
