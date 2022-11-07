@@ -33,6 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "healthy-body-api.herokuapp.com",
     "127.0.0.1",
+    "localhost"
 ]
 
 
