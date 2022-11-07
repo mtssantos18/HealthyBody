@@ -9,8 +9,10 @@ from .permissions import (
 )
 from rest_framework.response import Response
 
-from .serializers import PrivateSerializer
+from .serializers import PrivateSerializer,PersonalScheduleSerielizer
 from .models import Private_training
+# from personals.serializers import PersonalAllSerializer
+from personals.models import Personal
 
 
 class PrivateViewCustomer(generics.ListCreateAPIView):
@@ -78,3 +80,12 @@ class PrivateTrainingDetailForCustomers(generics.RetrieveUpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save(customer=self.request.user.customer)
+
+class PrivateSchedulePersonal(generics.RetrieveAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [MyCustomPermissionCustomer]
+
+    lookup_url_kwarg = "personal_id"
+
+    queryset = Personal.objects.all()
+    serializer_class = PersonalScheduleSerielizer
