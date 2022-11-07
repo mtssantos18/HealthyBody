@@ -9,17 +9,17 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("modalities", "0001_initial"),
         ("teachers", "0001_initial"),
+        ("private_classes", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="modality",
+            model_name="private_class",
             name="teacher",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name="modalities",
+                related_name="private_classes",
                 to="teachers.teacher",
             ),
         ),
