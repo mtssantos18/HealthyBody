@@ -58,6 +58,7 @@ MY_APPS = [
     "users",
     "trains",
     "personals",
+    "private_classes",
     "private_trainings",
     "customers",
     "plans",
