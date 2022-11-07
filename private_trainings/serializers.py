@@ -5,27 +5,12 @@ from customers.models import Customer
 
 from django.shortcuts import get_object_or_404
 
-from users.models import User
+from users.serializers import GeneralUserSerializer
 
-
-class UserSerializer(serializers.ModelSerializer):
-
-    full_name = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = User
-        fields = [
-            "full_name",
-            "email",
-            "phone",
-        ]
-
-    def get_full_name(self, obj) -> str:
-        return obj.obtain_full_name()
 
 class PersonalSerializer(serializers.ModelSerializer):
-    
-    user = UserSerializer()
+
+    user = GeneralUserSerializer()
 
     class Meta:
         model = Personal
@@ -35,15 +20,12 @@ class PersonalSerializer(serializers.ModelSerializer):
             "check_in",
             "check_out",
         ]
-        read_only_fields = [
-            "check_in",
-            "check_out"
-        ]
+        read_only_fields = ["check_in", "check_out"]
 
 
 class CustomerSerializerPT(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = GeneralUserSerializer()
 
     class Meta:
 
@@ -52,6 +34,7 @@ class CustomerSerializerPT(serializers.ModelSerializer):
         fields = [
             "user",
         ]
+
 
 class PrivateSerializer(serializers.ModelSerializer):
     customer = CustomerSerializerPT(read_only=True)
@@ -64,13 +47,17 @@ class PrivateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         check_personal = validated_data.pop("personal_id")
-        personal_found = get_object_or_404(Personal,id=check_personal)
+        personal_found = get_object_or_404(Personal, id=check_personal)
 
         train_already_exists = Private_training.objects.filter(**validated_data)
 
         if train_already_exists:
-            raise serializers.ValidationError(detail="You cannot create a private workout with this personal at the same time and same day.") 
+            raise serializers.ValidationError(
+                detail="This personal trainer is already scheduled at this hour of this day."
+            )
 
-        new_private_training = Private_training.objects.create(**validated_data,personal=personal_found)
+        new_private_training = Private_training.objects.create(
+            **validated_data, personal=personal_found
+        )
 
         return new_private_training

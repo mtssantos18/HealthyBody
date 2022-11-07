@@ -7,5 +7,5 @@ class Modality(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
     teacher = models.ForeignKey(
-        "teachers.Teacher", on_delete=models.CASCADE, related_name="modality"
+        "teachers.Teacher", on_delete=models.CASCADE, related_name="modalities"
     )

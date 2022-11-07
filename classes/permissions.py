@@ -10,3 +10,12 @@ class CustomPermission(permissions.BasePermission):
             return False
 
         return request.method in permissions.SAFE_METHODS
+
+
+class IsAdmPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.method == "GET"
+            or request.user.is_authenticated
+            and request.user.is_superuser
+        )

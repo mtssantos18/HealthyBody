@@ -14,6 +14,6 @@ class IsSuperuserAllOrPersonalNotDelete(permissions.BasePermission):
 
 class CanNotDeletePersonalUserDeleted(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        if request.method == 'DELETE':
+        if request.method == "DELETE":
             return obj.user.is_active
         return True
