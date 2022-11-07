@@ -9,7 +9,8 @@ class Class(models.Model):
     schedule = ArrayField(models.CharField(max_length=20))
     hour = models.TimeField()
     duration = models.CharField(max_length=20)
-    capacity = models.IntegerField()
+    max_capacity = models.PositiveIntegerField()
+    vacancies = models.IntegerField()
 
     teacher = models.ForeignKey(
         "teachers.Teacher", on_delete=models.CASCADE, related_name="classes"
@@ -17,4 +18,9 @@ class Class(models.Model):
 
     modality = models.ForeignKey(
         "modalities.Modality", on_delete=models.CASCADE, related_name="classes"
+    )
+
+    customers = models.ManyToManyField(
+        "customers.Customer",
+        related_name="classes",
     )
