@@ -4,6 +4,7 @@ from personals.models import Personal
 from customers.models import Customer
 import ipdb
 
+
 class MyCustomPermissionCustomer(permissions.BasePermission):
     def has_permission(self, request: Request, view: View) -> bool:
         try:
@@ -12,13 +13,19 @@ class MyCustomPermissionCustomer(permissions.BasePermission):
         except AttributeError:
             return False
 
+
 class MyCustomPermissionCustomerDetail(permissions.BasePermission):
-    def has_object_permission(self, request: Request, view: View, customer:Customer):
+    def has_object_permission(self, request: Request, view: View, customer: Customer):
         try:
             if request.method == "PATCH" or request.method == "GET":
-                return request.user.is_authenticated and request.user.customer and request.user == customer.customer.user
+                return (
+                    request.user.is_authenticated
+                    and request.user.customer
+                    and request.user == customer.customer.user
+                )
         except AttributeError:
             return False
+
 
 class SuperUserPermission(permissions.BasePermission):
     def has_permission(self, request: Request, view: View) -> bool:
@@ -28,17 +35,28 @@ class SuperUserPermission(permissions.BasePermission):
 
 
 class MyCustomPermissionPersonal(permissions.BasePermission):
-    def has_permission(self, request: Request, view: View)->bool:
+    def has_permission(self, request: Request, view: View) -> bool:
         try:
             if request.method == "GET":
                 return request.user.is_authenticated and request.user.personal
         except AttributeError:
             return False
 
+
 class MyCustomPermissionPersonalDetail(permissions.BasePermission):
-    def has_object_permission(self, request: Request, view: View, personal:Personal)->bool:
+    def has_object_permission(
+        self, request: Request, view: View, personal: Personal
+    ) -> bool:
         try:
-            if request.method == "DELETE" or request.method == "PATCH" or request.method == "GET":
-                return request.user.is_authenticated and request.user.personal and request.user == personal.personal.user 
+            if (
+                request.method == "DELETE"
+                or request.method == "PATCH"
+                or request.method == "GET"
+            ):
+                return (
+                    request.user.is_authenticated
+                    and request.user.personal
+                    and request.user == personal.personal.user
+                )
         except AttributeError:
             return False
