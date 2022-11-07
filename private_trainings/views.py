@@ -1,11 +1,8 @@
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .permissions import (
-    MyCustomPermissionCustomer,
-    SuperUserPermission,
-    MyCustomPermissionPersonal,
-)
+from .permissions import MyCustomPermissionCustomer,SuperUserPermission,MyCustomPermissionPersonal,MyCustomPermissionPersonalDetail,MyCustomPermissionCustomerDetail
+from rest_framework.response import Response
 
 from .serializers import PrivateSerializer
 from .models import Private_training
@@ -16,9 +13,13 @@ class PrivateViewCustomer(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [MyCustomPermissionCustomer]
 
-    queryset = Private_training.objects.all()
-    serializer_class = PrivateSerializer
+    def get(self,request):
+        queryset = Private_training.objects.filter(customer_id=self.request.user.customer.id)
+        serializer = PrivateSerializer(queryset, many=True)
+        return Response(serializer.data)
 
+    serializer_class = PrivateSerializer
+        
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user.customer)
 
@@ -32,18 +33,37 @@ class GetAllPrivateTrainings(generics.ListAPIView):
 
 
 class PrivateViewPersonal(generics.ListAPIView):
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [MyCustomPermissionPersonal]
 
-    queryset = Private_training.objects
+    def get(self,request):
+        queryset = Private_training.objects.filter(personal_id=self.request.user.personal.id)
+        serializer = PrivateSerializer(queryset, many=True)
+        return Response(serializer.data)
+
     serializer_class = PrivateSerializer
 
-
-class PrivateTrainingDetail(generics.RetrieveUpdateDestroyAPIView):
+class PrivateTrainingDetailForPersonals(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [MyCustomPermissionPersonalDetail]
 
     lookup_url_kwarg = "training_id"
 
-    queryset = Private_training.objects
+    queryset = Private_training.objects.all()
     serializer_class = PrivateSerializer
+
+    def perform_update(self, serializer):
+        serializer.save(personal=self.request.user.personal)
+
+class PrivateTrainingDetailForCustomers(generics.RetrieveUpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [MyCustomPermissionCustomerDetail]
+
+    lookup_url_kwarg = "training_id"
+
+    queryset = Private_training.objects.all()
+    serializer_class = PrivateSerializer
+
+    def perform_update(self, serializer):
+        serializer.save(customer=self.request.user.customer)
