@@ -1,12 +1,8 @@
 from rest_framework import permissions
 from rest_framework.views import Request, View
-<<<<<<< HEAD
 from personals.models import Personal
 from customers.models import Customer
 import ipdb
-=======
-
->>>>>>> 4aa024e7297b4a746fa7b4e6a1638a40db76c691
 
 class MyCustomPermissionCustomer(permissions.BasePermission):
     def has_permission(self, request: Request, view: View) -> bool:
@@ -16,7 +12,6 @@ class MyCustomPermissionCustomer(permissions.BasePermission):
         except AttributeError:
             return False
 
-<<<<<<< HEAD
 class MyCustomPermissionCustomerDetail(permissions.BasePermission):
     def has_object_permission(self, request: Request, view: View, customer:Customer):
         try:
@@ -26,11 +21,6 @@ class MyCustomPermissionCustomerDetail(permissions.BasePermission):
             return False
 
 class SuperUserPermission(permissions.BasePermission):
-     def has_permission(self, request: Request, view: View)->bool:
-=======
->>>>>>> 4aa024e7297b4a746fa7b4e6a1638a40db76c691
-
-class SuperUserPermission(permissions.BasePermission):
     def has_permission(self, request: Request, view: View) -> bool:
 
         if request.user.is_authenticated and request.user.is_superuser:
@@ -38,7 +28,6 @@ class SuperUserPermission(permissions.BasePermission):
 
 
 class MyCustomPermissionPersonal(permissions.BasePermission):
-<<<<<<< HEAD
     def has_permission(self, request: Request, view: View)->bool:
         try:
             if request.method == "GET":
@@ -53,7 +42,3 @@ class MyCustomPermissionPersonalDetail(permissions.BasePermission):
                 return request.user.is_authenticated and request.user.personal and request.user == personal.personal.user 
         except AttributeError:
             return False
-=======
-    def has_object_permission(self, request: Request, view: View) -> bool:
-        ...
->>>>>>> 4aa024e7297b4a746fa7b4e6a1638a40db76c691
