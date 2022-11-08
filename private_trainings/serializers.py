@@ -70,11 +70,15 @@ class PrivateSerializer(serializers.ModelSerializer):
         return new_private_training
 
     def update(self, instance, validated_data):
+        if len(validated_data) < 3:
+            raise serializers.ValidationError(
+                detail="You need to inform an date, hour and a personal_id"
+            )
         personal_found = get_object_or_404(Personal, id=instance.personal.id)
 
         hour = validated_data["hour"]
 
-        if hour < personal_found.check_in or hour > personal_found.check_out:
+        if hour > personal_found.check_in and hour < personal_found.check_out:
             raise serializers.ValidationError(
                 detail="This workout cannot be scheduled."
             )
