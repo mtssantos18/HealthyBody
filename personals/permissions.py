@@ -15,9 +15,9 @@ class IsSuperuserAllOrPersonalNotDelete(permissions.BasePermission):
 class IsSuperuserPersonalOrReadOnly(permissions.BasePermission):
     def has_permission(self, request: Request, view: View):
         try:
-            if request.method == "GET":
+            if request.method in permissions.SAFE_METHODS:
                 return True
-            return request.user.is_superuser or request.user.is_personal
+            return request.user.personal
         except AttributeError:
             return request.user.is_superuser
 

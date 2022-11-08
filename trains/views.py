@@ -51,7 +51,3 @@ class ListByCustomerView(generics.ListCreateAPIView):
         customer = get_object_or_404(Customer, id=customer_id)
 
         return self.queryset.filter(customer=customer)
-        # try:
-        #     if self.request.user.customer:
-        # except AttributeError:
-        #     return self.queryset.all()
