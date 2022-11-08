@@ -49,9 +49,9 @@ class PrivateSerializer(serializers.ModelSerializer):
         check_personal = validated_data.pop("personal_id")
         personal_found = get_object_or_404(Personal, id=check_personal)
 
-        hour = validated_data['hour']
+        hour = validated_data["hour"]
 
-        if (hour<personal_found.check_in or hour>personal_found.check_out):
+        if hour < personal_found.check_in or hour > personal_found.check_out:
             raise serializers.ValidationError(
                 detail="This workout cannot be scheduled."
             )
@@ -72,9 +72,9 @@ class PrivateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         personal_found = get_object_or_404(Personal, id=instance.personal.id)
 
-        hour = validated_data['hour']
+        hour = validated_data["hour"]
 
-        if (hour<personal_found.check_in or hour>personal_found.check_out):
+        if hour < personal_found.check_in or hour > personal_found.check_out:
             raise serializers.ValidationError(
                 detail="This workout cannot be scheduled."
             )
@@ -92,17 +92,17 @@ class GetPrivateTrainings(serializers.ModelSerializer):
         model = Private_training
         fields = [
             "date",
-            "hour"
+            "hour",
         ]
 
 
-class PersonalScheduleSerielizer(serializers.ModelSerializer):
-    private_trainings = GetPrivateTrainings(read_only=True,many=True)
+class PersonalScheduleSerializer(serializers.ModelSerializer):
+    private_trainings = GetPrivateTrainings(read_only=True, many=True)
+
     class Meta:
         model = Personal
         fields = [
             "check_in",
             "check_out",
-            "private_trainings"
+            "private_trainings",
         ]
-

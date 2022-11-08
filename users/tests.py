@@ -1,11 +1,11 @@
-from rest_framework.test import APITestCase 
+from rest_framework.test import APITestCase
 from users.models import User
 
+
 class UserTest(APITestCase):
-    
     @classmethod
     def setUpTestData(cls) -> None:
-        
+
         cls.user_data = {
             "username": "UserTest",
             "first_name": "User",
@@ -14,7 +14,7 @@ class UserTest(APITestCase):
             "birthdate": "1998-04-12",
             "is_active": True,
             "password": "12345",
-            "email": "test@email.com"
+            "email": "test@email.com",
         }
 
         cls.user = User.objects.create_user(**cls.user_data)
@@ -60,7 +60,7 @@ class UserTest(APITestCase):
         max_length = self.user._meta.get_field("first_name").max_length
 
         self.assertEqual(max_length, 50)
-    
+
     def test_last_name_max_length(self):
 
         max_length = self.user._meta.get_field("last_name").max_length
@@ -72,7 +72,3 @@ class UserTest(APITestCase):
         is_active = self.user._meta.get_field("is_active").default
 
         self.assertTrue(is_active)
-    
-
-
-    

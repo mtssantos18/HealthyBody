@@ -2,10 +2,11 @@ from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from personals.models import Personal
 from personals.serializers import PersonalAllSerializer
-from users.permissions import IsSuperuserOrReadOnly
 from rest_framework.response import Response
-from personals.permissions import IsSuperuserAllOrPersonalNotDelete, IsSuperuserPersonalOrReadOnly
-# Create your views here.
+from personals.permissions import (
+    IsSuperuserAllOrPersonalNotDelete,
+    IsSuperuserPersonalOrReadOnly,
+)
 
 
 class CreateListPersonal(generics.ListCreateAPIView):
