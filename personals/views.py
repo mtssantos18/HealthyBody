@@ -4,13 +4,13 @@ from personals.models import Personal
 from personals.serializers import PersonalAllSerializer
 from users.permissions import IsSuperuserOrReadOnly
 from rest_framework.response import Response
-from personals.permissions import IsSuperuserAllOrPersonalNotDelete, CanNotDeletePersonalUserDeleted
+from personals.permissions import IsSuperuserAllOrPersonalNotDelete, IsSuperuserPersonalOrReadOnly
 # Create your views here.
 
 
 class CreateListPersonal(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsSuperuserOrReadOnly]
+    permission_classes = [IsSuperuserPersonalOrReadOnly]
 
     queryset = Personal.objects.all()
     serializer_class = PersonalAllSerializer

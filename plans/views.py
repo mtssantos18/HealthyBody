@@ -17,5 +17,7 @@ class PlanDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [SuperUserAndAuthenticated]
 
+    lookup_url_kwarg = "plan_id"
+
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer

@@ -19,3 +19,12 @@ class IsAdmPermission(permissions.BasePermission):
             or request.user.is_authenticated
             and request.user.is_superuser
         )
+
+
+class IsCustomerPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        try:
+            if request.method == "PATCH":
+                return request.user.is_authenticated and request.user.customer
+        except AttributeError:
+            return False

@@ -49,11 +49,18 @@ class PrivateSerializer(serializers.ModelSerializer):
         check_personal = validated_data.pop("personal_id")
         personal_found = get_object_or_404(Personal, id=check_personal)
 
+        hour = validated_data['hour']
+
+        if (hour<personal_found.check_in or hour>personal_found.check_out):
+            raise serializers.ValidationError(
+                detail="This workout cannot be scheduled."
+            )
+
         train_already_exists = Private_training.objects.filter(**validated_data)
 
         if train_already_exists:
             raise serializers.ValidationError(
-                detail="This personal trainer is already scheduled at this hour of this day."
+                detail="You've already booked this workout!"
             )
 
         new_private_training = Private_training.objects.create(
@@ -61,3 +68,41 @@ class PrivateSerializer(serializers.ModelSerializer):
         )
 
         return new_private_training
+
+    def update(self, instance, validated_data):
+        personal_found = get_object_or_404(Personal, id=instance.personal.id)
+
+        hour = validated_data['hour']
+
+        if (hour<personal_found.check_in or hour>personal_found.check_out):
+            raise serializers.ValidationError(
+                detail="This workout cannot be scheduled."
+            )
+
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+            instance.save()
+
+        super().update(instance, validated_data)
+        return instance
+
+
+class GetPrivateTrainings(serializers.ModelSerializer):
+    class Meta:
+        model = Private_training
+        fields = [
+            "date",
+            "hour"
+        ]
+
+
+class PersonalScheduleSerielizer(serializers.ModelSerializer):
+    private_trainings = GetPrivateTrainings(read_only=True,many=True)
+    class Meta:
+        model = Personal
+        fields = [
+            "check_in",
+            "check_out",
+            "private_trainings"
+        ]
+

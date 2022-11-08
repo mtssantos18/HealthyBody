@@ -12,6 +12,16 @@ class IsSuperuserAllOrPersonalNotDelete(permissions.BasePermission):
             return request.user.is_superuser
 
 
+class IsSuperuserPersonalOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request: Request, view: View):
+        try:
+            if request.method == "GET":
+                return True
+            return request.user.is_superuser or request.user.is_personal
+        except AttributeError:
+            return request.user.is_superuser
+
+
 class CanNotDeletePersonalUserDeleted(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method == "DELETE":

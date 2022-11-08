@@ -1,6 +1,6 @@
 from rest_framework import permissions
 from rest_framework.views import Request, View
-from personals.models import Personal
+from teachers.models import Teacher
 from customers.models import Customer
 import ipdb
 
@@ -34,18 +34,18 @@ class SuperUserPermission(permissions.BasePermission):
             return True
 
 
-class MyCustomPermissionPersonal(permissions.BasePermission):
+class MyCustomPermissionTeacher(permissions.BasePermission):
     def has_permission(self, request: Request, view: View) -> bool:
         try:
             if request.method == "GET":
-                return request.user.is_authenticated and request.user.personal
+                return request.user.is_authenticated and request.user.teacher
         except AttributeError:
             return False
 
 
-class MyCustomPermissionPersonalDetail(permissions.BasePermission):
+class MyCustomPermissionTeacherDetail(permissions.BasePermission):
     def has_object_permission(
-        self, request: Request, view: View, personal: Personal
+        self, request: Request, view: View, teacher: Teacher
     ) -> bool:
         try:
             if (
@@ -55,8 +55,8 @@ class MyCustomPermissionPersonalDetail(permissions.BasePermission):
             ):
                 return (
                     request.user.is_authenticated
-                    and request.user.personal
-                    and request.user == personal.personal.user
+                    and request.user.teacher
+                    and request.user == teacher.teacher.user
                 )
         except AttributeError:
             return False
