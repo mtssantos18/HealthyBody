@@ -7,6 +7,8 @@ from utils.mixins import SerializerByMethodMixin
 from django.shortcuts import get_object_or_404
 from customers.models import Customer
 
+# heroku
+
 
 class CreateListTrainView(SerializerByMethodMixin, generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
