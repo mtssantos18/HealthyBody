@@ -133,14 +133,19 @@ class AddCustomerSerializer(serializers.ModelSerializer):
 
         plan = get_object_or_404(Plan, id=customer.plan_id)
 
-        check_availability = instance.customers.filter(user=user)
+        check_availability = customer.classes.all()
+
+        check_instance_in_this_class = instance.customers.filter(user=user)
+
+        if check_instance_in_this_class:
+            raise CustomValidationError("You're already part of this class.")
 
         if plan.name == "Bronze":
             raise CustomValidationError(
                 "Your plan does not cover classes for modalities."
             )
 
-        if plan.name == "Prata" and check_availability:
+        if plan.name == "Prata" and len(check_availability) != 0:
             raise CustomValidationError("You can only join one class per time.")
 
         if instance.vacancies < 1:
