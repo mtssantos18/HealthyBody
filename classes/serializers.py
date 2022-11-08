@@ -10,7 +10,6 @@ from customers.serializers import GeneralCustomerSerializer
 from users.serializers import GeneralUserSerializer
 from django.shortcuts import get_object_or_404
 from classes.exceptions import NonUpdatableKeyError, CustomValidationError
-import ipdb
 
 
 class ClassModalitySerializer(serializers.ModelSerializer):

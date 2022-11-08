@@ -14,10 +14,7 @@ class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Teacher
-        fields = [
-            "id",
-            "user"
-        ]
+        fields = ["id", "user"]
 
 
 class CustomerSerializerPT(serializers.ModelSerializer):
@@ -72,18 +69,12 @@ class PrivateSerializer(serializers.ModelSerializer):
 class GetPrivateClasses(serializers.ModelSerializer):
     class Meta:
         model = Private_class
-        fields = [
-            "id",
-            "date",
-            "hour"
-        ]
+        fields = ["id", "date", "hour"]
 
 
-class TeacherScheduleSerielizer(serializers.ModelSerializer):
-    private_classes = GetPrivateClasses(read_only=True,many=True)
+class TeacherScheduleSerializer(serializers.ModelSerializer):
+    private_classes = GetPrivateClasses(read_only=True, many=True)
+
     class Meta:
         model = Teacher
-        fields = [
-            "private_classes"
-        ]
-
+        fields = ["private_classes"]

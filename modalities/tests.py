@@ -9,34 +9,34 @@ class One_To_Many_Tests(APITestCase):
     def setUpTestData(cls) -> None:
 
         cls.user_data_1 = {
-                "username": "User1Test",
-                "first_name": "User1",
-                "last_name": "Test",
-                "phone": "123456789",
-                "birthdate": "1998-04-12",
-                "is_active": True,
-                "password": "12345",
-                "email": "test1@email.com"          
+            "username": "User1Test",
+            "first_name": "User1",
+            "last_name": "Test",
+            "phone": "123456789",
+            "birthdate": "1998-04-12",
+            "is_active": True,
+            "password": "12345",
+            "email": "test1@email.com",
         }
 
         cls.user_data_2 = {
-                "username": "User2Test",
-                "first_name": "User2",
-                "last_name": "Test",
-                "phone": "123456789",
-                "birthdate": "1998-04-12",
-                "is_active": True,
-                "password": "12345",
-                "email": "test2@email.com"
+            "username": "User2Test",
+            "first_name": "User2",
+            "last_name": "Test",
+            "phone": "123456789",
+            "birthdate": "1998-04-12",
+            "is_active": True,
+            "password": "12345",
+            "email": "test2@email.com",
         }
 
-        cls.modalites = [Modality(name = f'modalidate {num}') for num in range(1,11) ]
+        cls.modalites = [Modality(name=f"modalidate {num}") for num in range(1, 11)]
 
         cls.user_1 = User.objects.create_user(**cls.user_data_1)
         cls.user_2 = User.objects.create_user(**cls.user_data_2)
 
-        cls.teacher_1 = Teacher.objects.create(user = cls.user_1)
-        cls.teacher_2 = Teacher.objects.create(user = cls.user_2)
+        cls.teacher_1 = Teacher.objects.create(user=cls.user_1)
+        cls.teacher_2 = Teacher.objects.create(user=cls.user_2)
 
     def test_relatioship_one_to_many(self):
 
@@ -44,10 +44,7 @@ class One_To_Many_Tests(APITestCase):
             modality.teacher = self.teacher_1
             modality.save()
 
-        self.assertEqual(
-            len(self.modalites),
-            self.teacher_1.modalities.count()
-        )
+        self.assertEqual(len(self.modalites), self.teacher_1.modalities.count())
 
         for modalite in self.modalites:
             self.assertIs(modalite.teacher, self.teacher_1)
@@ -56,14 +53,12 @@ class One_To_Many_Tests(APITestCase):
 
         for modality in self.modalites:
             modality.teacher = self.teacher_1
-            modality.save()   
+            modality.save()
 
         for modality in self.modalites:
             modality.teacher = self.teacher_2
-            modality.save()   
+            modality.save()
 
         for modality in self.modalites:
             self.assertIn(modality, self.teacher_2.modalities.all())
             self.assertNotIn(modality, self.teacher_1.modalities.all())
-
-        

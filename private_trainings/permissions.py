@@ -2,7 +2,6 @@ from rest_framework import permissions
 from rest_framework.views import Request, View
 from personals.models import Personal
 from customers.models import Customer
-import ipdb
 
 
 class MyCustomPermissionCustomer(permissions.BasePermission):

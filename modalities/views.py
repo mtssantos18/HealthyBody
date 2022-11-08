@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 
 from modalities.models import Modality
-from modalities.permissions import IsAdmPermission, IsAdmPermissionOrTeacherReadOnly
+from modalities.permissions import IsAdmPermissionOrTeacherReadOnly
 from modalities.serializers import ModalitySerializer
 
 

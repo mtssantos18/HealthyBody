@@ -2,10 +2,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from customers.models import Customer
 from customers.serializers import CustomerDetailSerializer, CustomerSerializer
-from .permissions import (
-    CanNotDeleteCustomerUserDeleted,
-    IsSuperuserAllOrCustomerNotDelete,
-)
+from .permissions import IsSuperuserAllOrCustomerNotDelete
+
 from rest_framework.authentication import TokenAuthentication
 from users.permissions import IsSuperuserOrReadOnly
 
