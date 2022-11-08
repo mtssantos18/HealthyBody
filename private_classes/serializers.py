@@ -58,6 +58,11 @@ class PrivateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
+        if len(validated_data) < 3:
+            raise serializers.ValidationError(
+                detail="You need to inform an date, hour and a personal_id"
+            )
+
         for key, value in validated_data.items():
             setattr(instance, key, value)
             instance.save()
