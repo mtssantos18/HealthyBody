@@ -58,9 +58,16 @@ class PrivateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
-        if len(validated_data) < 3:
+        if len(validated_data) < 2:
             raise serializers.ValidationError(
-                detail="You need to inform an date, hour and a personal_id"
+                detail="You need to inform an date and a hour"
+            )
+
+        class_already_exists = Private_class.objects.filter(**validated_data)
+
+        if class_already_exists:
+            raise serializers.ValidationError(
+                detail="You've already booked this class!"
             )
 
         for key, value in validated_data.items():
