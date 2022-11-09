@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Private_training
 from personals.models import Personal
 from customers.models import Customer
+import ipdb
 
 from django.shortcuts import get_object_or_404
 
@@ -49,12 +50,12 @@ class PrivateSerializer(serializers.ModelSerializer):
         check_personal = validated_data.pop("personal_id")
         personal_found = get_object_or_404(Personal, id=check_personal)
 
-        hour = validated_data["hour"]
+        # hour = validated_data["hour"]
 
-        if hour < personal_found.check_in or hour > personal_found.check_out:
-            raise serializers.ValidationError(
-                detail="This workout cannot be scheduled."
-            )
+        # if hour < personal_found.check_in or hour > personal_found.check_out:
+        #     raise serializers.ValidationError(
+        #         detail="This workout cannot be scheduled."
+        #     )
 
         train_already_exists = Private_training.objects.filter(**validated_data)
 
@@ -74,14 +75,14 @@ class PrivateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 detail="You need to inform an date, hour and a personal_id"
             )
-        personal_found = get_object_or_404(Personal, id=instance.personal.id)
 
-        hour = validated_data["hour"]
+        train_already_exists = Private_training.objects.filter(**validated_data)
 
-        if hour > personal_found.check_in and hour < personal_found.check_out:
+        if train_already_exists:
             raise serializers.ValidationError(
-                detail="This workout cannot be scheduled."
+                detail="You've already booked this workout!"
             )
+        # personal_found = get_object_or_404(Personal, id=instance.personal.id)
 
         for key, value in validated_data.items():
             setattr(instance, key, value)
